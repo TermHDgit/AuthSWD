@@ -39,7 +39,7 @@ namespace Auth
                 .AddGoogle(options =>
                 { 
                     IConfigurationSection googleAuthNSection =
-                        Configuration.GetSection("Authentication:Google");
+                        Configuration.GetSection("Authentication:Google"); 
 
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
