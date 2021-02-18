@@ -37,7 +37,7 @@ namespace Auth
 
             services.AddAuthentication()
                 .AddGoogle(options =>
-                {
+                { 
                     IConfigurationSection googleAuthNSection =
                         Configuration.GetSection("Authentication:Google");
 
