@@ -1,4 +1,6 @@
 using Auth.Data;
+using Auth.Services.Interfaces;
+using Auth.Services.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,10 +30,15 @@ namespace Auth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -44,6 +51,12 @@ namespace Auth
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
+
+
+            services.AddScoped<IBlogsRepository, BlogsRepository>();
+            services.AddScoped<IPostRepository, PostsRepository>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
